@@ -1,0 +1,33 @@
+{
+  "nodeModulesDir": "auto",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "lib": ["dom", "dom.iterable", "deno.ns"],
+    "strict": true
+  },
+  "exclude": ["dist/"],
+  "imports": {
+    "hono": "npm:hono@^4",
+
+    "solid-js": "npm:solid-js@^1.9.0",
+    "solid-js/web": "npm:solid-js@^1.9.0/web",
+    "@solidjs/router": "npm:@solidjs/router@^0.15.0",
+
+    "resend": "npm:resend@6.9.2",
+
+    "vite": "npm:vite@^7.0.0",
+    "vite-plugin-solid": "npm:vite-plugin-solid@^2.11.0",
+    "@hono/vite-dev-server": "npm:@hono/vite-dev-server@^0.25.0"    
+  },
+  "tasks": {
+    "build:vite": "deno run -A --node-modules-dir=manual npm:vite build",    
+    "serve:hono": "deno task build:vite && deno run -A --watch server.ts --preview",
+    "dev:vite": "deno run -A --node-modules-dir=manual npm:vite",
+
+    "tunnel": "deno task build:vite && deno serve -A --tunnel server.ts",
+
+    "sync": "deno task build:vite && deno deploy --project=your-project-name --include=dist,server.ts,deno.json",
+    "deploy": "deno task build:vite && deno deploy --prod --project=your-project-name --include=dist,server.ts,deno.json"
+  }
+}
